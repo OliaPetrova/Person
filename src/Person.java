@@ -10,6 +10,7 @@ public class Person {
     public Person(String name, String surname) {
         this.name = name;
         this.surname = surname;
+        this.age = OptionalInt.empty();
     }
 
     public Person(String name, String surname, int age) {
@@ -21,6 +22,7 @@ public class Person {
     public boolean hasAge() {
         return age.isPresent();
     }
+
     public boolean hasAddress() {
         return address != null;
     }
@@ -46,8 +48,8 @@ public class Person {
     }
 
     public void happyBirthday() {
-        if(hasAge()) {
-        age = OptionalInt.of(age.getAsInt()+1);
+        if (hasAge()) {
+            age = OptionalInt.of(age.getAsInt() + 1);
         }
 
     }
@@ -61,7 +63,7 @@ public class Person {
 
     @Override
     public String toString() {
-        return name + " " + surname + (hasAge() ? ", возраст: "+ age.getAsInt() : "") + (hasAddress() ? ", адрес: " + address : "");
+        return name + " " + surname + (hasAge() ? ", возраст: " + age.getAsInt() : "") + (hasAddress() ? ", адрес: " + address : "");
     }
 
     @Override
@@ -73,15 +75,16 @@ public class Person {
         if (!name.equals(person.name)) return false;
         if (!surname.equals(person.surname)) return false;
         if (age.isPresent() ? !age.equals(person.age) : person.age.isPresent()) return false;
-        return address != null ? address.equals(person.address) : person.address == null;}
+        return address != null ? address.equals(person.address) : person.address == null;
+    }
 
     @Override
     public int hashCode() {
-      int result = name.hashCode();
-      result = 31 * result + surname.hashCode();
-      result = 31 * result + (age.isPresent() ? age.getAsInt() : 0);
-      result = 31 * result + (address != null ? address.hashCode() : 0);
-      return result;
+        int result = name.hashCode();
+        result = 31 * result + surname.hashCode();
+        result = 31 * result + (age.isPresent() ? age.getAsInt() : 0);
+        result = 31 * result + (address != null ? address.hashCode() : 0);
+        return result;
     }
 }
 
